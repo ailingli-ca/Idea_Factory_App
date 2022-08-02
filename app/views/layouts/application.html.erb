@@ -11,6 +11,31 @@
   </head>
 
   <body>
+      <header>
+      <nav>
+      </nav>
+      <nav class="navbar navbar-light bg-light">
+        <div class="nav-container"> 
+          <a class="text-primary navbar-brand" href="<%= root_path %>" style="margin-left: 1em">Idea Factory</a>
+        </div>
+        <div class="nav-items-set justify-content-end">
+          <ul class="nav">
+            <li class="nav-item">
+              <a class="text-primary nav-link" href="<%= new_idea_path %>">New Idea</a>
+            </li>
+
+
+          </ul>
+        </div>
+      </nav>
+    </header> 
+    <div>
+      <% flash.each do |type, message| %>
+        <div class="alert alert-info" role="alert">
+          <%= type + "------" + message %>
+        </div>
+      <% end %>
+    </div>
     <%= yield %>
   </body>
 </html>
