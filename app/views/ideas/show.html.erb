@@ -2,7 +2,7 @@
   <h1><%= @idea.title %></h1>
   <p><%= @idea.description %></p>
 
-  <p><small>Posted <%= time_ago_in_words(@idea.created_at) %> ago</small> | 
+  <p><small>Created <%= time_ago_in_words(@idea.created_at) %> ago</small> | 
   <small>Created by: <%= @idea.user.full_name %></small></p>
   
   <% if can? :crud, @idea %>
@@ -15,4 +15,33 @@
         </div>
     </div>
   <% end %>
+
+    <h3>Review</h3>
+    <% if @review.errors.any? %>
+        <ul>
+        <% @review.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+        <% end %>
+        </ul>
+    <% end %>
+    <%= form_with(model:[@idea, @review]) do |f| %>
+        <div>
+        <%= f.text_area :body, class: "form-control mb-3", placeholder:"Write your review"  %>
+        </div>
+        <%= f.submit "Submit", class: "btn btn-outline-primary mb-4" %>
+    <% end %>
+
+    <div>
+      <% @reviews.each do |review| %>
+          <div><%= review.body %>
+          <div class="d-flex mb-1">
+          <small class="d-flex align-items-center">Created <%= time_ago_in_words(review.created_at) %> ago by: <label><%= review.user.full_name %></label> </small>
+          <% if can? :crud, review %>
+            <span class="dot mx-1"> • </span>
+            <%= button_to "Delete", idea_review_path(@idea, review), method: :delete,form: { data: { turbo_confirm: "Are you sure?" } }, class: "btn btn-link my-1 p-0 border-0 text-decoration-none", style:"font-size: 14px;" %>
+          <% end %>
+          </div>
+          </div>      
+      <% end %>
+  </div>
 </div>

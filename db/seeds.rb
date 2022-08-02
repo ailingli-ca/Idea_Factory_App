@@ -8,13 +8,15 @@
 
 Idea.destroy_all
 User.destroy_all
+Review.destroy_all
 
 PASSWORD = "123"
 super_user = User.create(
   first_name: "Admin",
   last_name: "User",
   email: "admin@user.com",
-  password: PASSWORD
+  password: PASSWORD,
+  is_admin: true
 )
 
 10.times do
@@ -40,10 +42,17 @@ users = User.all
         updated_at: created_at, 
         user: users.sample   
     )
+    if i.valid?
+        rand(1..5).times do
+            Review.create(body: Faker::Hacker.say_something_smart, idea:i, user: users.sample)
+        end
+    end
 
 end
 
 ideas = Idea.all
+reviews = Review.all
 
 p "Generated #{ideas.count} ideas"
 p "Generated #{users.count} users"
+p "Generated #{reviews.count} reviews"
