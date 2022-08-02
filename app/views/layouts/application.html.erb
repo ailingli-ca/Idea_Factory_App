@@ -23,8 +23,22 @@
             <li class="nav-item">
               <a class="text-primary nav-link" href="<%= new_idea_path %>">New Idea</a>
             </li>
-
-
+            
+            <% if(user_signed_in?) %>
+              <li class="nav-item">
+                Hello <%= current_user.full_name %>
+              </li>
+              <li class="nav-item">
+                <div><%= button_to "Sign out", session_path, method: :delete, class: "mx-2"%></div>
+              </li>
+            <% else %>
+              <li class="nav-item">
+                <a class="nav-link" href="<%= new_session_path %>">Sign In</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="<%= new_user_path %>">Sign Up</a>
+              </li>
+            <% end %>
           </ul>
         </div>
       </nav>
