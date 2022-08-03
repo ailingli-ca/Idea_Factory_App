@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   # root "articles#index"
   resources :ideas do
     resources :reviews, only: [:create, :destroy]
+    resources :likes, shallow: true, only: [:create, :destroy]
+    get :liked, on: :collection
   end
 
   resources :users, only:[:new, :create]

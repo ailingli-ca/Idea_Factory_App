@@ -26,6 +26,7 @@ class IdeasController < ApplicationController
     def show
         @reviews = @idea.reviews.order(created_at: :desc) 
         @review = Review.new
+        @like = @idea.likes.find_by(user: current_user)
     end
 
     def edit
@@ -42,6 +43,10 @@ class IdeasController < ApplicationController
     def destroy
         @idea.destroy
         redirect_to ideas_path
+    end
+
+    def liked
+        @ideas = current_user.liked_ideas
     end
 
     private 

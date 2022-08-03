@@ -9,6 +9,7 @@
 Idea.destroy_all
 User.destroy_all
 Review.destroy_all
+Like.destroy_all
 
 PASSWORD = "123"
 super_user = User.create(
@@ -45,14 +46,16 @@ users = User.all
     if i.valid?
         rand(1..5).times do
             Review.create(body: Faker::Hacker.say_something_smart, idea:i, user: users.sample)
+            i.likers = users.shuffle.slice(0, rand(users.count))
         end
     end
-
 end
 
 ideas = Idea.all
 reviews = Review.all
+likes = Like.all
 
 p "Generated #{ideas.count} ideas"
 p "Generated #{users.count} users"
 p "Generated #{reviews.count} reviews"
+p "Generated #{likes.count} likes"

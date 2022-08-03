@@ -11,36 +11,32 @@
   </head>
 
   <body>
-      <header>
-      <nav>
-      </nav>
+    <header>
       <nav class="navbar navbar-light bg-light">
         <div class="nav-container"> 
           <a class="text-primary navbar-brand" href="<%= root_path %>" style="margin-left: 1em">Idea Factory</a>
         </div>
-        <div class="nav-items-set justify-content-end">
-          <ul class="nav">
-            <li class="nav-item">
-              <a class="text-primary nav-link" href="<%= new_idea_path %>">New Idea</a>
-            </li>
-            
-            <% if(user_signed_in?) %>
-              <li class="nav-item">
-                Hello <%= current_user.full_name %>
-              </li>
-              <li class="nav-item">
-                <div><%= button_to "Sign out", session_path, method: :delete, class: "mx-2"%></div>
-              </li>
-            <% else %>
-              <li class="nav-item">
-                <a class="nav-link" href="<%= new_session_path %>">Sign In</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="<%= new_user_path %>">Sign Up</a>
-              </li>
-            <% end %>
-          </ul>
-        </div>
+          <div class="nav-items-set justify-content-end">
+            <ul class="nav">
+              
+              <% if(user_signed_in?) %>
+                <li class="nav-item mt-2">
+                  Hello <%= current_user.first_name %>
+                </li>
+                <li class="nav-item">
+                  <div><%= button_to "Sign out", session_path, method: :delete, class: "btn btn-link"%></div>
+                </li>
+              <% else %>
+                <li class="nav-item">
+                  <a class="nav-link" href="<%= new_session_path %>">Sign In</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="<%= new_user_path %>">Sign Up</a>
+                </li>
+              <% end %>
+            </ul>
+            <a class="btn btn-outline-dark px-5" href="<%= new_idea_path %>">New Idea</a>
+          </div>
       </nav>
     </header> 
     <div>
