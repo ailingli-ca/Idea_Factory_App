@@ -13,8 +13,13 @@
   <body>
     <header>
       <nav class="navbar navbar-light bg-light">
-        <div class="nav-container"> 
-          <a class="text-primary navbar-brand" href="<%= root_path %>" style="margin-left: 1em">Idea Factory</a>
+        <div>
+          <%= link_to root_path do %>
+              <%= image_tag("idea-icon.jpg", width:"80", class:"ms-4")%>   
+          <% end %>         
+          <div class="nav-container justify-content-start"> 
+            <a class="text-primary navbar-brand" href="<%= root_path %>" style="margin-left: 1em">Idea Factory</a>
+          </div>
         </div>
           <div class="nav-items-set justify-content-end">
             <ul class="nav">
