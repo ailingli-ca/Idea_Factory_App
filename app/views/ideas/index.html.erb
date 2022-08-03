@@ -1,0 +1,27 @@
+<div class="container-flex">
+    <div class="flex-row flex-wrap">
+        <% @ideas.each do |idea| %>
+            <div class="card">
+                <div class = "card-body">
+                    <h5 class="card-title"><%= link_to idea.title, idea_path(idea), class: "text-dark text-decoration-none" %></h5>
+                    <p class="card-text"><%=idea.description%></p>
+                    <div class="d-flex flex-row justify-content-between">
+                        <small class="text-primary" >By <%= idea.user&.first_name || "DELETED" %></small>
+                        <small><%= pluralize(idea.likes.count, "like") %></small>
+                    </div>
+                    <div class="mt-1">
+                        <% if user_signed_in? %>
+                            <% like = idea.likes.find_by(user: current_user) %>
+                            <% if like.present? && can?(:destroy, like) %>
+                                <%= button_to "Liked", like_path(like), method: :delete, class: "btn btn-outline-danger shadow-lg" %>
+                            <% elsif can?(:like, idea) %>
+                                <%= button_to "Like", idea_likes_path(idea), method: :post, class: "btn btn-outline-success" %>
+                            <% end %>
+                        <% end %>
+                    </div>
+                </div>
+            </div>
+        <% end %>
+    </div>
+</div>
+

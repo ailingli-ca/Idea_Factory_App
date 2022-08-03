@@ -11,6 +11,46 @@
   </head>
 
   <body>
+    <header>
+      <nav class="navbar navbar-light bg-light">
+        <div>
+          <%= link_to root_path do %>
+              <%= image_tag("idea-icon.jpg", width:"80", class:"ms-4")%>   
+          <% end %>         
+          <div class="nav-container justify-content-start"> 
+            <a class="text-primary navbar-brand" href="<%= root_path %>" style="margin-left: 1em">Idea Factory</a>
+          </div>
+        </div>
+          <div class="nav-items-set justify-content-end">
+            <ul class="nav">
+              
+              <% if(user_signed_in?) %>
+                <li class="nav-item mt-2">
+                  Hello <%= current_user.first_name %>
+                </li>
+                <li class="nav-item">
+                  <div><%= button_to "Sign out", session_path, method: :delete, class: "btn btn-link"%></div>
+                </li>
+              <% else %>
+                <li class="nav-item">
+                  <a class="nav-link" href="<%= new_session_path %>">Sign In</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="<%= new_user_path %>">Sign Up</a>
+                </li>
+              <% end %>
+            </ul>
+            <a class="btn btn-outline-dark px-5" href="<%= new_idea_path %>">New Idea</a>
+          </div>
+      </nav>
+    </header> 
+    <div>
+      <% flash.each do |type, message| %>
+        <div class="alert alert-info" role="alert">
+          <%= type + "------" + message %>
+        </div>
+      <% end %>
+    </div>
     <%= yield %>
   </body>
 </html>
